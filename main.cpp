@@ -8,13 +8,33 @@ vector<string> split(const string &);
 
 int birthday(vector<int> s, int d, int m)
 {
+    int retValue = 0;
+    int sum;
 
+    if((size_t)m > s.size())
+        return retValue;
+
+    for(size_t i = 0; i < s.size() - (m - 1); i++)
+    {
+        sum = 0;
+
+        for(size_t j = i; j < i + m; j++)
+        {
+            sum += s[j];
+
+            if(sum > d)
+                break;
+        }
+
+        if(sum == d)
+            retValue++;
+    }
+
+    return retValue;
 }
 
 int main()
 {
-    ofstream fout(getenv("OUTPUT_PATH"));
-
     string n_temp;
     getline(cin, n_temp);
 
@@ -44,11 +64,9 @@ int main()
 
     int result = birthday(s, d, m);
 
-    fout << result << "\n";
+    cout << result << endl;
 
-    fout.close();
-
-    return 0;
+    return EXIT_SUCCESS;
 }
 
 string ltrim(const string &str) {
